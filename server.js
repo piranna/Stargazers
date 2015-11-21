@@ -28,7 +28,8 @@ var dates =
 var datesNodeos =
 [
   '2013-09-15',  // Node NockOut
-  '2014-09-10'   // Hacker News
+  '2014-09-10',  // Hacker News
+  '2015-11-18'   // 1.0-RC1
 ]
 
 
@@ -148,6 +149,7 @@ function accumulate(data)
 
 function getChx(begin, end)
 {
+  // Copy the begin date
   begin = new Date(begin)
 
   var months = []
