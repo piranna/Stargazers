@@ -186,6 +186,7 @@ function getChx(daysBegin, end)
   {
     chxl: '0:|'+months.join('|'),
     chxp: '0,'+monthsP.join(','),
+    chxs: '0,808080,13,-1,lt',
     chxt: 'x,y'
   }
 
@@ -195,6 +196,7 @@ function getChx(daysBegin, end)
     {
       result.chxl += '|2:|'+years.join('|')
       result.chxp += '|2,'+yearsP.join(',')
+      result.chxs += '|2,808080,13,-1,lt'
       result.chxt += ',x'
       break
     }
@@ -265,6 +267,7 @@ stargazers(USER, REPO, options, function(error, data)
     cht:  'lxy',
     chxl: chx.chxl,
     chxp: chx.chxp,
+    chxs: chx.chxs,
     chxt: chx.chxt
   }
 
