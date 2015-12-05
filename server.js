@@ -147,23 +147,37 @@ function accumulate(data)
   })
 }
 
-function getChx(begin, end)
+function daysFromDataEpoch(day)
+{
+  return (day.getTime() - this)/MILLISECONDS_PER_DAY
+}
+
+function getChx(daysBegin, end)
 {
   // Copy the begin date
-  begin = new Date(begin)
+  var begin = new Date(daysBegin)
 
   var months = []
   var years  = []
+
+  var monthsP = []
+  var yearsP  = []
 
   while(begin <= end)
   {
     if(begin.getDate() === 1)
     {
+      var days = daysFromDataEpoch.call(daysBegin, begin)
+
       months.push(begin.getMonth()+1)
-      years.push(begin.getMonth() === 0 ? begin.getFullYear() : '')
+      monthsP.push(days)
+
+      if(begin.getMonth() === 0)
+      {
+        years.push(begin.getFullYear())
+        yearsP.push(days)
+      }
     }
-    else
-      months.push('')
 
     begin.setDate(begin.getDate()+1)
   }
@@ -171,6 +185,7 @@ function getChx(begin, end)
   var result =
   {
     chxl: '0:|'+months.join('|'),
+    chxp: '0,'+monthsP.join(','),
     chxt: 'x,y'
   }
 
@@ -179,6 +194,7 @@ function getChx(begin, end)
     if(year !== '')
     {
       result.chxl += '|2:|'+years.join('|')
+      result.chxp += '|2,'+yearsP.join(',')
       result.chxt += ',x'
       break
     }
@@ -236,10 +252,7 @@ stargazers(USER, REPO, options, function(error, data)
   var chx = getChx(daysBegin, daysEnd)
 
   // Get days from beginning of data
-  days = days.map(function(day)
-  {
-    return (day.getTime() - daysBegin)/MILLISECONDS_PER_DAY
-  })
+  days = days.map(daysFromDataEpoch, daysBegin)
 
   // Request chart
   var lastDay = days[days.length-1]
@@ -251,6 +264,7 @@ stargazers(USER, REPO, options, function(error, data)
     chs:  lastDay+'x'+Math.floor(300000/lastDay),
     cht:  'lxy',
     chxl: chx.chxl,
+    chxp: chx.chxp,
     chxt: chx.chxt
   }
 
