@@ -198,6 +198,7 @@ function getChx(daysBegin, end)
       result.chxp += '|2,'+yearsP.join(',')
       result.chxs += '|2,808080,13,-1,lt'
       result.chxt += ',x'
+      result.chxtc = '2,5'
       break
     }
 
@@ -277,6 +278,9 @@ stargazers(USER, REPO, options, function(error, data)
     chxs: chx.chxs,
     chxt: chx.chxt
   }
+
+  var chxtc = chx.chxtc
+  if(chxtc) postData.chxtc = chxtc
 
   postData = stringify(postData)
 
