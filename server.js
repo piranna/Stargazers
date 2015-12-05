@@ -204,6 +204,13 @@ function getChx(daysBegin, end)
   return result
 }
 
+function getChs(width)
+{
+  if(width > 1000) width = 1000
+
+  return width+'x'+Math.floor(300000/width)
+}
+
 
 var options =
 {
@@ -263,7 +270,7 @@ stargazers(USER, REPO, options, function(error, data)
     chd:  't:'+days.join(',')+'|'+stargazers.join(','),
     chds: 'a',
     chm:  'o,000000,0,-1,2'+'|'+events.join('|'),
-    chs:  lastDay+'x'+Math.floor(300000/lastDay),
+    chs:  getChs(lastDay),
     cht:  'lxy',
     chxl: chx.chxl,
     chxp: chx.chxp,
